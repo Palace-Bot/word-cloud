@@ -1,5 +1,6 @@
 package org.github.word.cloud;
 
+import net.mamoe.mirai.contact.MemberPermission;
 import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.message.data.Image;
 import net.mamoe.mirai.message.data.MessageSource;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 public class WordCloudCommand extends SimpleCommand {
     public WordCloudCommand() {
-        super("查看词云", null, false, "查看词云");
+        super("查看词云", MemberPermission.MEMBER, false, "查看词云");
     }
 
     @CommandHandler
