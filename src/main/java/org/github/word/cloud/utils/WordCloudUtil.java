@@ -7,6 +7,7 @@ import com.kennycason.kumo.font.scale.LinearFontScalar;
 import com.kennycason.kumo.nlp.FrequencyAnalyzer;
 import com.kennycason.kumo.nlp.tokenizers.ChineseWordTokenizer;
 import com.kennycason.kumo.palette.LinearGradientColorPalette;
+import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
 import java.io.File;
@@ -22,6 +23,7 @@ import java.util.*;
  * @author JHY
  * @date 2022/3/29 15:00
  */
+@Slf4j
 public class WordCloudUtil {
 
     private static final Random RANDOM = new Random();
@@ -41,7 +43,7 @@ public class WordCloudUtil {
                 }
             }
         } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
     }
 

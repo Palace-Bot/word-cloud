@@ -27,7 +27,7 @@ public class WordCloudCommand extends SimpleCommand {
     }
 
     @CommandHandler
-    public void handler(CommandSender commandSender, MessageSource messageSource, PlainText plainText) {
+    public void handler(CommandSender commandSender) {
         MessageMapper messageMapper = MybatisContext.INSTANCE.get(MessageMapper.class);
 
         Calendar calendar = Calendar.getInstance();
@@ -36,9 +36,10 @@ public class WordCloudCommand extends SimpleCommand {
         calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - 7);
         long start = calendar.getTimeInMillis();
 
-        List<String> messages = messageMapper.selectMessagesByCreateAt(commandSender.getSubject().getId(), messageSource.getFromId(), start, end);
+        long formId = commandSender.getUser().getId();
+        List<String> messages = messageMapper.selectMessagesByCreateAt(commandSender.getSubject().getId(), formId, start, end);
         if (!messages.isEmpty()) {
-            At at = new At(messageSource.getFromId());
+            At at = new At(formId);
             commandSender.sendMessage(" 您一周内发言共" + messages.size() + "条, 请稍等词云正在制作中...");
 
             File file = WordCloudUtil.gen(messages);
